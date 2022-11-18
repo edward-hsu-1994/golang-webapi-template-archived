@@ -1,0 +1,9 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "updateSwagger",
+        "command": "./scripts/update-swagger.sh",
+        "args": [],
+        "type": "shell"
+    }]
+}

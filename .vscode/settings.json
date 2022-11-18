@@ -1,0 +1,18 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#520E4F",
+        "titleBar.activeBackground": "#73136E",
+        "titleBar.activeForeground": "#FEFBFE"
+    },
+    "material-icon-theme.folders.associations": {
+        // https://gist.github.com/rupeshtiwari/6860fbc1b3e2f6711c780070d6f59748
+        "internal": "Components",
+        "deployments":"Kubernetes",
+        "domain":"Job",
+        "infra":"Database",
+        "controllers":"Routes"
+    },
+    "material-icon-theme.files.associations": {
+        "*.controller.go": "Routing"
+    }
+}
