@@ -23,7 +23,7 @@ func NewWeatherController(
 // @Tags	Weathers
 // @version	1.0
 // @produce	application/json
-// @Success	200	{object}	appModels.User
+// @Success	200	{array}	models.Weather
 // @Router	/api/weather	[get]
 func (this *WeatherController) GetWeathers(context *gin.Context) {
 	data := []*models.Weather{

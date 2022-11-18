@@ -1,0 +1,26 @@
+definitions:
+  golang-webapi-template_app_models.Weather:
+    properties:
+      location:
+        type: string
+      temperatureC:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/weather:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/golang-webapi-template_app_models.Weather'
+            type: array
+      summary: Find all weather info
+      tags:
+      - Weathers
+swagger: "2.0"
