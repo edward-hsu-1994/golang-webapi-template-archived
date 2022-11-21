@@ -4,6 +4,10 @@
         "label": "updateSwagger",
         "command": "./scripts/update-swagger.sh",
         "args": [],
-        "type": "shell"
+        "type": "shell",
+        "presentation": {
+            "reveal": "silent",
+            "close": true
+        }
     }]
 }
