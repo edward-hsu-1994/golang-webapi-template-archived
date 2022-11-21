@@ -10,6 +10,13 @@ The gin-based Web API template. The purpose of this template is for ASP.NET 6+ d
     1. [Go Extension Pack](https://marketplace.visualstudio.com/items?itemName=doggy8088.go-extension-pack) (Recommend) : Popular Visual Studio Code extensions for Go Development.
     2. [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme) (Option) : Material Design Icons for Visual Studio Code. This template has adjustments to the directory and file Icon (see `.vscode/settings.json`).
 > ⚠ SWAG CLI currently does not provide Binary files for Windows environment, you need to build it yourself.
+> ```shell
+> git clone https://github.com/swaggo/swag.git
+> cd swag
+> go build ./cmd/swag
+>
+> ./swag help
+> ```
 
 # Template Layout
 
