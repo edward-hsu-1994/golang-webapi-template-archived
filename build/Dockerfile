@@ -11,27 +11,21 @@ WORKDIR /app
 
 
 
-
-FROM golang AS build
+FROM golang:alpine AS build
 #ENV GOPRIVATE=
-WORKDIR /src
-
+WORKDIR /app
+RUN apk add --no-cache bash
+#SHELL ["/bin/bash", "-c"]
 COPY . .
-
-RUN rm -f -r ./dist
-RUN mkdir -p ./dist
-RUN sh ./scripts/update-swagger.sh
-RUN go mod download
-RUN go build -o ./dist/app ./cmd 
-RUN cp -r ./assets ./dist
-RUN cp -r ./configs ./dist
-
+RUN go install github.com/swaggo/swag/cmd/swag@v1.8.8
+RUN /bin/bash ./scripts/build.sh
 
 
 
 
 FROM base AS final
 WORKDIR /app
-COPY --from=build /src/dist .
-RUN chmod +x ./app
-ENTRYPOINT ["./app"] 
+COPY --from=build /app/dist .
+RUN ls -l
+RUN chmod +x app
+ENTRYPOINT ["./app"]
