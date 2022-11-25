@@ -1,7 +1,10 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "API template",
+        "title": "XXX API",
+        "contact": {},
+        "version": "1.0"
     },
     "paths": {
         "/api/weather": {
@@ -19,7 +22,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/golang-webapi-template_app_models.Weather"
+                                "$ref": "#/definitions/models.Weather"
                             }
                         }
                     }
@@ -28,7 +31,7 @@
         }
     },
     "definitions": {
-        "golang-webapi-template_app_models.Weather": {
+        "models.Weather": {
             "type": "object",
             "properties": {
                 "location": {

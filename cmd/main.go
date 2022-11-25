@@ -6,6 +6,9 @@ import (
 	"golang-webapi-template/core"
 )
 
+// @title           XXX API
+// @version         1.0
+// @description     API template
 func main() {
 	fmt.Println("Starting...")
 
