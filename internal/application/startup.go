@@ -1,8 +1,8 @@
-package app
+package application
 
 import (
-	"golang-webapi-template/app/controllers"
-	"golang-webapi-template/app/middlewares"
+	"golang-webapi-template/application/controllers"
+	"golang-webapi-template/application/middlewares"
 	"golang-webapi-template/core"
 
 	"github.com/gin-contrib/static"

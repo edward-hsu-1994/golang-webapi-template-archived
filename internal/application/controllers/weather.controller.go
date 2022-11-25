@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"golang-webapi-template/app/models"
+	"golang-webapi-template/application/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
