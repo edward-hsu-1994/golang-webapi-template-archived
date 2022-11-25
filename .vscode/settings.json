@@ -8,11 +8,30 @@
         // https://gist.github.com/rupeshtiwari/6860fbc1b3e2f6711c780070d6f59748
         "internal": "Components",
         "deployments":"Kubernetes",
+        "application":"App",
         "domain":"Job",
-        "infra":"Database",
-        "controllers":"Routes"
+        "infrastructure":"Content",
+        "controllers":"Routes",
+        "repositories": "Database"
     },
     "material-icon-theme.files.associations": {
         "*.controller.go": "Routing"
-    }
+    },
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.go": "${capture}.*.go",
+    },    
+    "go.toolsEnvVars": {
+        //"GOPRIVATE": "",
+    },
+    "terminal.integrated.env.linux":{
+        //"GOPRIVATE": "",
+    },
+    "terminal.integrated.env.windows": {
+        //"GOPRIVATE": "",
+    },
+    "terminal.integrated.env.osx": {
+        //"GOPRIVATE": "",
+    },
+    "hediet.vscode-drawio.theme": "atlas"
 }
