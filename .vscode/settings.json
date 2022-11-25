@@ -4,6 +4,7 @@
         "titleBar.activeBackground": "#73136E",
         "titleBar.activeForeground": "#FEFBFE"
     },
+    "workbench.iconTheme": "material-icon-theme",
     "material-icon-theme.folders.associations": {
         // https://gist.github.com/rupeshtiwari/6860fbc1b3e2f6711c780070d6f59748
         "internal": "Components",
