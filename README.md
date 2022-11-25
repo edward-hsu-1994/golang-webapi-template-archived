@@ -26,9 +26,9 @@ This template is reference to the [Standard Go Project Layout](https://github.co
 
 This template uses the `Module` approach to slice out three layers of structure: app(`./internal/application`), domain(`./internal/domain`), infra(`./internal/infrastructure`).
 
-* app : This is the Application Layer(Presentation Layer) and works as a gateway where applications interact with the system. This layer processes collected information from interactions between the application and end-users or third-party services. It receives requests and validates the input before sending them to the Domain for processing. API also provides responses to the client. 
+* application : This is the Application Layer(Presentation Layer) and works as a gateway where applications interact with the system. This layer processes collected information from interactions between the application and end-users or third-party services. It receives requests and validates the input before sending them to the Domain for processing. API also provides responses to the client. 
 * domain : A place to define logic concepts, principles, patterns, and behaviors of data, including domain validation, calculations, and expressions for system operations.
-* infra : The Infrastructure of the system includes database, logging, and exceptions. This layer is the place to interact with the database. Through behaviors and rules, POCO classes have been defined in the Domain. This layer undertakes all operations related to the information storage of the system.
+* infrastructure : The Infrastructure of the system includes database, logging, and exceptions. This layer is the place to interact with the database. Through behaviors and rules, POCO classes have been defined in the Domain. This layer undertakes all operations related to the information storage of the system.
 
 > ref. https://enlabsoftware.com/development/domain-driven-design-in-asp-net-core-applications.html
 
