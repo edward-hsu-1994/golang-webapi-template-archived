@@ -24,7 +24,7 @@ This template is reference to the [Standard Go Project Layout](https://github.co
 
 ## Three Layers Struct
 
-This template uses the `Module` approach to slice out three layers of structure: app(`./internal/app`), domain(`./internal/domain`), infra(`./internal/infra`).
+This template uses the `Module` approach to slice out three layers of structure: app(`./internal/application`), domain(`./internal/domain`), infra(`./internal/infrastructure`).
 
 * app : This is the Application Layer(Presentation Layer) and works as a gateway where applications interact with the system. This layer processes collected information from interactions between the application and end-users or third-party services. It receives requests and validates the input before sending them to the Domain for processing. API also provides responses to the client. 
 * domain : A place to define logic concepts, principles, patterns, and behaviors of data, including domain validation, calculations, and expressions for system operations.
