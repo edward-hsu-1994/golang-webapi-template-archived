@@ -32,6 +32,16 @@ This template uses the `Module` approach to slice out three layers of structure:
 
 > ref. https://enlabsoftware.com/development/domain-driven-design-in-asp-net-core-applications.html
 
+## Modules Dependencies
+
+```mermaid
+  graph TD;
+      cmd-->internal/application;
+      internal/application-->internal/domain;
+      internal/application-->internal/infrastructure;
+      internal/infrastructure-->internal/domain;
+```
+
 ## Mimicking ASP.NET 6+
 
 In the `./internal/core` module of this template, the flow of WebHost and DepencyInjection in ASP.NET is mimicked. In addition to this, the structure of the Controller is also mimicked as much as possible.
