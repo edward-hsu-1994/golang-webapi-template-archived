@@ -1,4 +1,4 @@
-module golang-webapi-template/app
+module golang-webapi-template/application
 
 go 1.19
 

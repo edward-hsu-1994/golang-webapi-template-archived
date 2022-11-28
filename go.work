@@ -3,7 +3,7 @@ go 1.19
 use (
     ./cmd
     ./internal/core
-    ./internal/app
+    ./internal/application
     ./internal/domain
-    ./internal/infra
+    ./internal/infrastructure
 )

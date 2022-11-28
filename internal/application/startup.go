@@ -1,8 +1,8 @@
-package app
+package application
 
 import (
-	"golang-webapi-template/app/controllers"
-	"golang-webapi-template/app/middlewares"
+	"golang-webapi-template/application/controllers"
+	"golang-webapi-template/application/middlewares"
 	"golang-webapi-template/core"
 
 	"github.com/gin-contrib/static"
@@ -14,20 +14,20 @@ var configuration *core.Configuration
 func NewStartup(config core.Configuration) *core.Startup {
 	instance := &core.Startup{}
 
-	instance.ConfigureServicesFunc = ConfigurationServices
-	instance.ConfigureFunc = Configuration
+	instance.ConfigureServicesFunc = ConfigureServices
+	instance.ConfigureFunc = Configure
 
 	configuration = &config
 
 	return instance
 }
 
-func ConfigurationServices(container *core.Container) {
+func ConfigureServices(container *core.Container) {
 	// Add controller's constructor into container
 	container.AddControllers(controllers.NewWeatherController)
 }
 
-func Configuration(engine *core.GinEngine) {
+func Configure(engine *core.GinEngine) {
 	// Use json logging
 	engine.Use(middlewares.JsonLoggerMiddleware())
 	engine.Use(gin.Recovery())

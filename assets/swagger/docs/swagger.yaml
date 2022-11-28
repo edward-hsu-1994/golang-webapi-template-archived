@@ -1,5 +1,5 @@
 definitions:
-  golang-webapi-template_app_models.Weather:
+  models.Weather:
     properties:
       location:
         type: string
@@ -8,6 +8,9 @@ definitions:
     type: object
 info:
   contact: {}
+  description: API template
+  title: XXX API
+  version: "1.0"
 paths:
   /api/weather:
     get:
@@ -18,7 +21,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/golang-webapi-template_app_models.Weather'
+              $ref: '#/definitions/models.Weather'
             type: array
       summary: Find all weather info
       tags:

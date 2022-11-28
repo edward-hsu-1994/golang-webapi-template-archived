@@ -1,4 +1,5 @@
-swag init --parseDependency -g ./cmd/main.go
+#!/bin/bash
+
 rm -f -r ./assets/swagger/docs
-mv ./docs ./assets/swagger
-rm -f ./assets/swagger/docs/docs.go
+go mod download
+swag init -g ./cmd/main.go -o ./assets/swagger/docs --ot json,yaml
