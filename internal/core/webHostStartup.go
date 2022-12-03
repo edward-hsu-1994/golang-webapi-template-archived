@@ -5,13 +5,13 @@ import (
 	"go.uber.org/dig"
 )
 
-// Startup requires `ConfigureServices` and `Configure`
-type Startup struct {
+// WebHostStartup requires `ConfigureServices` and `Configure`
+type WebHostStartup struct {
 	ConfigureServicesFunc any
 	ConfigureFunc         any
 }
 
-func (this *Startup) Bootstrap(webhost *WebHost) error {
+func (this *WebHostStartup) Boot(webhost *WebHost) error {
 	// #region init default DI
 	webhost.container.Provide(func() *Container {
 		return webhost.container
@@ -20,7 +20,6 @@ func (this *Startup) Bootstrap(webhost *WebHost) error {
 	webhost.container.Provide(func() *dig.Container {
 		return webhost.container.Container
 	})
-
 	// #endregion
 
 	err := webhost.container.Invoke(this.ConfigureServicesFunc)

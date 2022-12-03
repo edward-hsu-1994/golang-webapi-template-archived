@@ -12,10 +12,15 @@ import (
 func main() {
 	fmt.Println("Starting...")
 
-	webhost := core.NewWebHost(application.NewStartup)
-	err := webhost.Run()
+	host, err := core.NewWebHostBuilder().UseStartup(application.NewStartup).UseGinEngine().Build()
 
 	if err != nil {
-		fmt.Printf("Application error: %s", err.Error())
+		fmt.Printf("Application initial: %s", err.Error())
+	}
+
+	err = host.Run()
+
+	if err != nil {
+		fmt.Printf("Application runtime error: %s", err.Error())
 	}
 }

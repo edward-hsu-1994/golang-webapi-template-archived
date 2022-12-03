@@ -11,8 +11,8 @@ import (
 
 var configuration *core.Configuration
 
-func NewStartup(config core.Configuration) *core.Startup {
-	instance := &core.Startup{}
+func NewStartup(config core.Configuration) *core.WebHostStartup {
+	instance := &core.WebHostStartup{}
 
 	instance.ConfigureServicesFunc = ConfigureServices
 	instance.ConfigureFunc = Configure
