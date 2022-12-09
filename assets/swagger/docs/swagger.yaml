@@ -1,6 +1,8 @@
 definitions:
   models.Weather:
     properties:
+      date:
+        type: string
       location:
         type: string
       temperatureC:

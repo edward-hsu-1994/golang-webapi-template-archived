@@ -1,19 +1,26 @@
 package controllers
 
 import (
-	"golang-webapi-template/application/models"
+	r "golang-webapi-template/application/models"
+	"golang-webapi-template/domain/models"
+	"golang-webapi-template/domain/services"
 	"net/http"
 
+	. "github.com/ahmetb/go-linq/v3"
 	"github.com/gin-gonic/gin"
 )
 
 type WeatherController struct {
+	weatherService *services.WeatherService
 }
 
 func NewWeatherController(
 	router *gin.Engine,
+	weatherService *services.WeatherService,
 ) *WeatherController {
-	instance := &WeatherController{}
+	instance := &WeatherController{
+		weatherService: weatherService,
+	}
 
 	router.GET("/api/weather", instance.GetWeathers)
 	return instance
@@ -26,16 +33,11 @@ func NewWeatherController(
 // @Success	200	{array}	models.Weather
 // @Router	/api/weather	[get]
 func (this *WeatherController) GetWeathers(context *gin.Context) {
-	data := []*models.Weather{
-		&models.Weather{
-			Location:     "Taipei",
-			TemperatureC: "28",
-		},
-		&models.Weather{
-			Location:     "Tainan",
-			TemperatureC: "29",
-		},
-	}
+	var data []*r.WeatherResponse
+
+	From(this.weatherService.ListWeather()).SelectT(func(item *models.Weather) *r.WeatherResponse {
+		return r.WeatherToResponse(item)
+	}).ToSlice(&data)
 
 	context.JSON(http.StatusOK, data)
 }

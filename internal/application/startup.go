@@ -4,6 +4,8 @@ import (
 	"golang-webapi-template/application/controllers"
 	"golang-webapi-template/application/middlewares"
 	"golang-webapi-template/core"
+	"golang-webapi-template/domain/services"
+	"golang-webapi-template/infrastructure/repositories"
 
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
@@ -25,6 +27,9 @@ func NewStartup(config core.Configuration) *core.WebHostStartup {
 func ConfigureServices(container *core.Container) {
 	// Add controller's constructor into container
 	container.AddControllers(controllers.NewWeatherController)
+
+	container.Provide(services.NewWeatherService)
+	container.Provide(repositories.NewMockWeatherRepository)
 }
 
 func Configure(engine *core.GinEngine) {
