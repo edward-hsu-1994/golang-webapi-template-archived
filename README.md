@@ -46,3 +46,8 @@ This template uses the `Module` approach to slice out three layers of structure:
 
 In the `./internal/core` module of this template, the flow of WebHost and DepencyInjection in ASP.NET is mimicked. In addition to this, the structure of the Controller is also mimicked as much as possible.
 
+## Github Actions Secrets Variables
+
+1. DOCKER_REGISTRY_REPO
+2. DOCKER_REGISTRY_USER
+3. DOCKER_REGISTRY_TOKEN
