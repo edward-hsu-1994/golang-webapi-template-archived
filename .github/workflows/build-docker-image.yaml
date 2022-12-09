@@ -1,0 +1,20 @@
+name: Build Docker Image
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build_image:
+    name: Build Image And Push To Docker Registry
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build Image    
+      run: docker build -t ${{ secrets.DOCKER_REGISTRY_REPO }}:${{ github.event.release.tag_name }} -t ${{ secrets.DOCKER_REGISTRY_REPO }}:latest -f ./build/Dockerfile .
+    - name: Login ghcr
+      run: echo ${{ secrets.DOCKER_REGISTRY_TOKEN }} | docker login ghcr.io -u ${{ secrets.DOCKER_REGISTRY_USER }} --password-stdin
+    - name: Push Image(version)
+      run: docker push ${{ secrets.DOCKER_REGISTRY_REPO }}:${{ github.event.release.tag_name }}
+    - name: Push Image(latest)
+      run: docker push ${{ secrets.DOCKER_REGISTRY_REPO }}:latest
