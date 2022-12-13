@@ -68,6 +68,35 @@ func (this *WebHostBuilder) UseStartup(startupConstructor any) *WebHostBuilder {
 	return this
 }
 
+func (this *WebHostBuilder) UseConfiguration(path *string) *WebHostBuilder {
+	var filePath = "./configs/appsettings.json"
+	if path != nil {
+		filePath = *path
+	}
+	this.provideFuncs = append(this.provideFuncs, func() Configuration {
+		var configuration Configuration
+
+		// Open our jsonFile
+		jsonFile, err := os.Open(filePath)
+		// if we os.Open returns an error then handle it
+		if err != nil {
+			fmt.Println("Not found configuration file: " + filePath)
+			configuration = make(Configuration)
+			return configuration
+		}
+
+		defer jsonFile.Close()
+
+		byteValue, _ := ioutil.ReadAll(jsonFile)
+
+		json.Unmarshal([]byte(byteValue), &configuration)
+
+		return configuration
+	})
+
+	return this
+}
+
 func (this *WebHostBuilder) UseGinEngine() *WebHostBuilder {
 	this.provideFuncs = append(this.provideFuncs, func() *gin.Engine {
 		return gin.New()
