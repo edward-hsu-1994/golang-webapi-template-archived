@@ -12,7 +12,12 @@ import (
 func main() {
 	fmt.Println("Starting...")
 
-	host, err := core.NewWebHostBuilder().UseStartup(application.NewStartup).UseGinEngine().Build()
+	host, err := core.
+		NewWebHostBuilder().
+		UseStartup(application.NewStartup).
+		UseConfiguration(nil).
+		UseGinEngine().
+		Build()
 
 	if err != nil {
 		fmt.Printf("Application initial: %s", err.Error())
