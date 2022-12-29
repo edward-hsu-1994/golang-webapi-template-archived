@@ -25,3 +25,10 @@ func (this *GinEngine) UseControllers() {
 		this.Container.Invoke(element)
 	}
 }
+
+func (this *GinEngine) RegexRouting(basePath string) *GinRegexRoutes {
+	return &GinRegexRoutes{
+		GinEngine: this,
+		basePath:  basePath,
+	}
+}

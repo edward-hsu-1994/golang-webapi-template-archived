@@ -2,6 +2,7 @@ package controllers
 
 import (
 	r "golang-webapi-template/application/models"
+	"golang-webapi-template/core"
 	"golang-webapi-template/domain/models"
 	"golang-webapi-template/domain/services"
 	"net/http"
@@ -15,14 +16,18 @@ type WeatherController struct {
 }
 
 func NewWeatherController(
-	router *gin.Engine,
+	router *core.GinEngine,
 	weatherService *services.WeatherService,
 ) *WeatherController {
 	instance := &WeatherController{
 		weatherService: weatherService,
 	}
 
-	router.GET("/api/weather", instance.GetWeathers)
+	//router.GET("/api/weather", instance.GetWeathers)
+	regexRoute := router.RegexRouting("/api/weather")
+	regexRoute.GET("/(?P<uid>.+):myAction", instance.GetWeathers)
+	regexRoute.GET("", instance.GetWeathers)
+
 	return instance
 }
 
