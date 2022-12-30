@@ -16,7 +16,7 @@ func main() {
 		NewWebHostBuilder().
 		UseStartup(application.NewStartup).
 		UseConfiguration(nil).
-		UseGinEngine().
+		UseFiberEngine().
 		Build()
 
 	if err != nil {

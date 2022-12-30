@@ -2,25 +2,43 @@ package middlewares
 
 import (
 	"encoding/json"
+	"log"
+	"os"
 	"time"
 
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 )
 
-func JsonLoggerMiddleware() gin.HandlerFunc {
-	return gin.LoggerWithFormatter(
-		func(params gin.LogFormatterParams) string {
-			log := make(map[string]interface{})
+// LogStruct - logger structure
+type LogStruct struct {
+	IP        string `json:"ip"`
+	URL       string `json:"url"`
+	StartTime string `json:"start_time"`
+	EndTime   string `json:"end_time"`
+	Duration  int64  `json:"duration"`
+	Agent     string `json:"agent"`
+	Status    int    `json:"status"`
+	Method    string `json:"method"`
+}
 
-			log["status_code"] = params.StatusCode
-			log["path"] = params.Path
-			log["method"] = params.Method
-			log["start_time"] = params.TimeStamp.UTC().Format(time.RFC3339)
-			log["remote_addr"] = params.ClientIP
-			log["response_time"] = params.Latency.String()
+// Log - logger will print JSON formatted logs onto STDOUT
+func Log(ctx *fiber.Ctx) error {
+	t := time.Now()
+	logInfo := LogStruct{
+		IP:        ctx.IP(),
+		URL:       ctx.OriginalURL(),
+		StartTime: t.String(),
+		Method:    string(ctx.Request().Header.Method()),
+		Agent:     string(ctx.Request().Header.UserAgent()),
+	}
+	ctx.Next()
+	logInfo.Status = ctx.Response().StatusCode()
+	logInfo.EndTime = time.Now().String()
+	logInfo.Duration = time.Since(t).Milliseconds()
+	logStr, _ := json.Marshal(logInfo)
 
-			s, _ := json.Marshal(log)
-			return string(s) + "\n"
-		},
-	)
+	logger := log.New(os.Stdout, "", 0)
+	logger.Printf("%s", string(logStr))
+
+	return nil
 }

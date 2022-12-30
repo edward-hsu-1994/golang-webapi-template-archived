@@ -6,9 +6,9 @@ import (
 	"golang-webapi-template/core"
 	"golang-webapi-template/domain/services"
 	"golang-webapi-template/infrastructure/repositories"
+	"time"
 
-	"github.com/gin-contrib/static"
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 )
 
 var configuration *core.Configuration
@@ -32,13 +32,19 @@ func ConfigureServices(container *core.Container) {
 	container.Provide(repositories.NewMockWeatherRepository)
 }
 
-func Configure(engine *core.GinEngine) {
+func Configure(engine *core.FiberEngine) {
 	// Use json logging
-	engine.Use(middlewares.JsonLoggerMiddleware())
-	engine.Use(gin.Recovery())
+	engine.Use(middlewares.Log)
 
 	// Add static file to routes
-	engine.Use(static.Serve("/", static.LocalFile("./assets", false)))
+	engine.Static("/", "./assets", fiber.Static{
+		Compress:      true,
+		ByteRange:     true,
+		Browse:        true,
+		Index:         "index.html",
+		CacheDuration: 10 * time.Second,
+		MaxAge:        3600,
+	})
 
 	engine.UseControllers()
 }

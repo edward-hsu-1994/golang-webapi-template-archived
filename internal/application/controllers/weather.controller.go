@@ -5,10 +5,9 @@ import (
 	"golang-webapi-template/core"
 	"golang-webapi-template/domain/models"
 	"golang-webapi-template/domain/services"
-	"net/http"
 
 	. "github.com/ahmetb/go-linq/v3"
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 )
 
 type WeatherController struct {
@@ -16,17 +15,15 @@ type WeatherController struct {
 }
 
 func NewWeatherController(
-	router *core.GinEngine,
+	router *core.FiberEngine,
 	weatherService *services.WeatherService,
 ) *WeatherController {
 	instance := &WeatherController{
 		weatherService: weatherService,
 	}
 
-	//router.GET("/api/weather", instance.GetWeathers)
-	regexRoute := router.RegexRouting("/api/weather")
-	regexRoute.GET("/(?P<uid>.+):myAction", instance.GetWeathers)
-	regexRoute.GET("", instance.GetWeathers)
+	router.Get("/api/weather", instance.GetWeathers)
+	router.Get("/api/weather/:uid\\:myAction", instance.GetWeathers)
 
 	return instance
 }
@@ -37,12 +34,14 @@ func NewWeatherController(
 // @produce	application/json
 // @Success	200	{array}	models.Weather
 // @Router	/api/weather	[get]
-func (this *WeatherController) GetWeathers(context *gin.Context) {
+func (this *WeatherController) GetWeathers(ctx *fiber.Ctx) error {
 	var data []*r.WeatherResponse
 
 	From(this.weatherService.ListWeather()).SelectT(func(item *models.Weather) *r.WeatherResponse {
 		return r.WeatherToResponse(item)
 	}).ToSlice(&data)
 
-	context.JSON(http.StatusOK, data)
+	ctx.JSON(data)
+
+	return ctx.SendStatus(200)
 }
