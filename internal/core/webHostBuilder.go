@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 	"go.uber.org/dig"
 )
 
@@ -105,8 +106,36 @@ func (this *WebHostBuilder) UseGinEngine() *WebHostBuilder {
 		return NewGinEngine(engine, container)
 	})
 
-	this.runFunc = func(engine *gin.Engine) error {
+	this.runFunc = func(engine *GinEngine) error {
 		return engine.Run()
+	}
+
+	return this
+}
+
+func (this *WebHostBuilder) UseFiberEngine() *WebHostBuilder {
+	this.provideFuncs = append(this.provideFuncs, func() *fiber.App {
+		return fiber.New()
+	})
+	this.provideFuncs = append(this.provideFuncs, func(engine *fiber.App, container *Container) *FiberEngine {
+		return NewFiberEngine(engine, container)
+	})
+
+	getEnv := func(key string) string {
+		val, ok := os.LookupEnv(key)
+		if !ok {
+			return ""
+		} else {
+			return val
+		}
+	}
+
+	this.runFunc = func(engine *FiberEngine) error {
+		port := getEnv("PORT")
+		if len(port) == 0 {
+			port = "8080"
+		}
+		return engine.Listen(":" + port)
 	}
 
 	return this
